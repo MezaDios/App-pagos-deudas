@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
+import { Message } from 'src/app/models/message';
 
 @Component({
   selector: 'app-add-user',
@@ -38,7 +39,7 @@ export class AddUserComponent implements OnInit {
 
   addUser() {
 
-    this.crud.signUpUser(this.form.value).subscribe(res => {
+    this.crud.signUpUser(this.form.value).subscribe((res: Message) => {
       console.log(res);
       alert(res.message);
     });

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
+import { Debt } from 'src/app/models/debt';
+import { Payment } from 'src/app/models/payment';
 
 @Component({
   selector: 'app-user-view',
@@ -32,9 +34,9 @@ export class UserViewComponent implements OnInit {
   }
 
   getDebts() {
-    this.crud.debtsByUser(this.crud.currentUser.id, null).subscribe(res => {
+    this.crud.debtsByUser(this.crud.currentUser.id, null).subscribe((res: Array<Debt>) => {
       this.debts = [];
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       res.forEach(debt => {
         const date = new Date(debt.creationDate).toLocaleString('en-US', options);
         this.debts.push({
@@ -48,9 +50,9 @@ export class UserViewComponent implements OnInit {
   }
 
   getPayments() {
-    this.crud.paymentsByUser(this.crud.currentUser.id, null).subscribe(res => {
+    this.crud.paymentsByUser(this.crud.currentUser.id, null).subscribe((res: Array<Payment>) => {
       this.payments = [];
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       res.forEach(payment => {
         const date = new Date(payment.paymentDate).toLocaleString('en-US', options);
         this.payments.push({

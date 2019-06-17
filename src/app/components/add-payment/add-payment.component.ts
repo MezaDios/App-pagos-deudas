@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { Message } from 'src/app/models/message';
 
 @Component({
   selector: 'app-add-payment',
@@ -61,7 +62,7 @@ export class AddPaymentComponent implements OnInit {
       paymentDate: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     };
     console.log(data);
-    this.crud.addPayment(data).subscribe(res => {
+    this.crud.addPayment(data).subscribe((res: Message) => {
       console.log(res);
       alert(res.message);
     });

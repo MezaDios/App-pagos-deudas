@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Debt } from 'src/app/models/debt';
 
 @Component({
   selector: 'app-consults',
@@ -59,16 +60,16 @@ export class ConsultsComponent implements OnInit {
   }
 
   getDebtors() {
-    this.crud.getDebtors(null).subscribe(res => {
+    this.crud.getDebtors(null).subscribe((res: Array<any>) => {
       this.debtors = res;
     });
 
   }
 
   getByUser() {
-    this.crud.debtsByUser(this.formUser.get('user').value, null).subscribe(res => {
+    this.crud.debtsByUser(this.formUser.get('user').value, null).subscribe((res: Array<Debt>) => {
       this.foundDebts = [];
-      
+
       res.forEach(debt => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const date = new Date(debt.creationDate).toLocaleString('en-US', options);
@@ -91,8 +92,8 @@ export class ConsultsComponent implements OnInit {
       endDate: this.formDate.get('endDate').value
     };
 
-    this.crud.debtsByDate(data).subscribe(res => {
-      
+    this.crud.debtsByDate(data).subscribe((res: Array<Debt>) => {
+
       this.foundDebts = [];
 
       res.forEach(debt => {

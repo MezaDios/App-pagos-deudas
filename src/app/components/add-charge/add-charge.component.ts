@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CrudService } from '../../services/crud.service';
-import { NgForm, FormGroup, FormControl, Validators, FormArray, FormBuilder, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
+import { Message } from 'src/app/models/message';
 
 @Component({
   selector: 'app-add-charge',
@@ -71,7 +71,7 @@ export class AddChargeComponent implements OnInit {
 
     console.log(data);
 
-    this.crud.addCharge(data).subscribe(res => {
+    this.crud.addCharge(data).subscribe((res: Message) => {
       console.log(res);
       alert(res.message);
     });

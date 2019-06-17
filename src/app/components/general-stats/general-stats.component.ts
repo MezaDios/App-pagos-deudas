@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
+import { Debt } from 'src/app/models/debt';
+import { Payment } from 'src/app/models/payment';
 
 @Component({
   selector: 'app-general-stats',
@@ -40,7 +42,7 @@ export class GeneralStatsComponent implements OnInit {
   }
 
   getDebtors() {
-    this.crud.getDebtors(null).subscribe(res => {
+    this.crud.getDebtors(null).subscribe((res: Array<any>) => {
       this.debtors = res;
 
       this.getDebts();
@@ -56,7 +58,7 @@ export class GeneralStatsComponent implements OnInit {
   getDebts() {
     this.debtors.forEach(debtor => {
       debtor.debts = [];
-      this.crud.debtsByUser(debtor.id, null).subscribe(res => {
+      this.crud.debtsByUser(debtor.id, null).subscribe((res: Array<Debt>) => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         res.forEach(debt => {
           const date = new Date(debt.creationDate).toLocaleString('en-US', options);
@@ -75,7 +77,7 @@ export class GeneralStatsComponent implements OnInit {
   getPayments() {
     this.debtors.forEach(debtor => {
 
-      this.crud.paymentsByUser(debtor.id, null).subscribe(res => {
+      this.crud.paymentsByUser(debtor.id, null).subscribe((res: Array<Payment>) => {
         debtor.payments = [];
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         res.forEach(payment => {
